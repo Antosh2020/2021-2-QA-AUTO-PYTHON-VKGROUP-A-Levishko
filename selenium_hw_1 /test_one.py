@@ -51,4 +51,20 @@ class TestOne(BaseCase):
 		self.login("zdobsizdub@inbox.ru", "adminadmin")
 		time.sleep(3)
 		self.find(page).click()
-		print(self.driver.current_url)
+		urls = ['https://target.my.com/segments/segments_list', 'https://target.my.com/billing']
+		assert self.driver.current_url in urls
+
+	# не смог реализовать этот вариант, падает с ошибкой, отправлю пока как есть
+	# @pytest.mark.parametrize(
+	# 	'page,expected',
+	# 	[
+	# 		(pytest.param(locators.AUDIENCES_BUTTON), 'https://target.my.com/segments/segments_list'),
+	# 		(pytest.param(locators.BILLING_BUTTON), 'https://target.my.com/billing')
+	# 	]
+	# )
+	# @pytest.mark.UI
+	# def test_page_navigation(self, page, expected):
+	# 	self.login("zdobsizdub@inbox.ru", "adminadmin")
+	# 	time.sleep(3)
+	# 	self.find(page).click()
+	# 	assert self.driver.current_url == expected

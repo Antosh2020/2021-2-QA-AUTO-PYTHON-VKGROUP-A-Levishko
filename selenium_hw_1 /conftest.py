@@ -19,6 +19,6 @@ def driver(config):
 	browser.maximize_window()
 	browser.get(url)
 	yield browser
-	browser.close()
+	browser.quit()
 
 

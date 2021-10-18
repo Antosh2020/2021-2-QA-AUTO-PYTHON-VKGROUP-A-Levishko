@@ -13,7 +13,7 @@ class BaseCase:
 		self.driver = driver
 
 	def find(self, locator):
-		element = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(((locator))))
+		element = WebDriverWait(self.driver, 5).until((EC.presence_of_element_located(locator)))
 		return element
 
 	def login(self, email, password):
