@@ -39,32 +39,15 @@ class TestOne(BaseCase):
 		assert name_input.get_attribute("value") == "Антон Антон"
 		assert phone_input.get_attribute("value") == "+79189410098"
 
-	@pytest.mark.parametrize(
-		'page',
-		[
-			pytest.param(locators.AUDIENCES_BUTTON),
-			pytest.param(locators.BILLING_BUTTON),
-		]
-	)
+	testdata = [
+		(locators.AUDIENCES_BUTTON, 'https://target.my.com/segments/segments_list'),
+		(locators.BILLING_BUTTON, 'https://target.my.com/billing')
+	]
+
+	@pytest.mark.parametrize('page,expected', testdata)
 	@pytest.mark.UI
-	def test_page_navigation(self, page):
+	def test_page_navigation(self, page, expected):
 		self.login("zdobsizdub@inbox.ru", "adminadmin")
 		time.sleep(3)
 		self.find(page).click()
-		urls = ['https://target.my.com/segments/segments_list', 'https://target.my.com/billing']
-		assert self.driver.current_url in urls
-
-	# не смог реализовать этот вариант, падает с ошибкой, отправлю пока как есть
-	# @pytest.mark.parametrize(
-	# 	'page,expected',
-	# 	[
-	# 		(pytest.param(locators.AUDIENCES_BUTTON), 'https://target.my.com/segments/segments_list'),
-	# 		(pytest.param(locators.BILLING_BUTTON), 'https://target.my.com/billing')
-	# 	]
-	# )
-	# @pytest.mark.UI
-	# def test_page_navigation(self, page, expected):
-	# 	self.login("zdobsizdub@inbox.ru", "adminadmin")
-	# 	time.sleep(3)
-	# 	self.find(page).click()
-	# 	assert self.driver.current_url == expected
+		assert self.driver.current_url == expected
