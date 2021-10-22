@@ -2,9 +2,7 @@ import pytest
 from ui.locators import locators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import StaleElementReferenceException
 
-CLICK_RETRY =3
 
 class BaseCase:
 
@@ -26,15 +24,3 @@ class BaseCase:
 		password_input = self.find(locators.PASSWORD_INPUT)
 		password_input.send_keys(password)
 		login_button_form = self.find(locators.LOGIN_BUTTON_FORM).click()
-
-	def click(self, locator):
-		for i in range (CLICK_RETRY):
-			try:
-				elem = self.find(locator)
-				if i <2:
-					self.driver.refresh()
-				elem.click()
-				return
-			except StaleElementReferenceException:
-				if i == CLICK_RETRY -1:
-					raise
